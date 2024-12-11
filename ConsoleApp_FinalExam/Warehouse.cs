@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp_FinalExam
 {
-    public class Warehouse //: IProductOperations
+    public class Warehouse : IProductOperations
     {
         private List<Product> products = new List<Product>();
 
