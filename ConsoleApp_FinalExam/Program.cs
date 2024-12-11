@@ -219,12 +219,12 @@ public class Program
 
         #endregion
 
-        #region Add/GetAll/Edit/Delete/Update
+        #region Task 3: Add/Edit/Delete/Update/GetAll/GetParticular
 
         Warehouse warehouse2 = new Warehouse();
 
         //AddProduct
-        #region Add
+        #region Add Product
         Console.Write("Enter Product Name: ");
         string nameOfProduct = Console.ReadLine();
         Console.Write("Enter Source (In-house/3rd Party): ");
@@ -248,7 +248,7 @@ public class Program
         };
 
         warehouse2.AddProduct(newProduct2);
-        Console.WriteLine("Product added successfully!");
+        //Console.WriteLine("Product added successfully!");
         #endregion
 
         //GetAllProduct
@@ -269,6 +269,7 @@ public class Program
         #endregion
 
         //View Particular Product
+        # region View Particular Product
         Console.WriteLine("-----View Particular Product Details-----");
         Console.Write("Enter Product ID: ");
         if (!int.TryParse(Console.ReadLine(), out int productId))
@@ -286,7 +287,102 @@ public class Program
         {
             Console.WriteLine(product.GetProductDetails());
         }
+        #endregion
 
+        //Update Particular Product
+        #region Update Particular Product
+        Console.WriteLine("-----View Particular Product Details and Edit -----");
+        Console.Write("Enter Product ID to Edit: ");
+        if (!int.TryParse(Console.ReadLine(), out int productId_edit))
+        {
+            Console.WriteLine("Invalid ID. Operation cancelled.");
+            return;
+        }
+
+        var product_edit = warehouse2.GetProduct(productId);
+        if (product_edit == null)
+        {
+            Console.WriteLine("Product not found.");
+            return;
+        }
+
+        Console.Write("Enter New Name: ");
+        string name = Console.ReadLine();
+        Console.Write("Enter New (In-house/3rd Party): ");
+        string source = Console.ReadLine();
+        Console.Write("Enter New Type (e.g., Fruit, Grain): ");
+        string type = Console.ReadLine();
+        Console.Write("Enter New Quantity: ");
+        if (!int.TryParse(Console.ReadLine(), out int quantity))
+        {
+            Console.WriteLine("Invalid quantity. Operation cancelled.");
+            return;
+        }
+
+        product.Name = string.IsNullOrWhiteSpace(name) ? product.Name : name;
+        product.Source = string.IsNullOrWhiteSpace(source) ? product.Source : source;
+        //product.Type = string.IsNullOrWhiteSpace(type) ? product.Type : type;
+        product.Quantity = quantity;
+
+        Console.WriteLine("Product updated successfully!");
+        #endregion
+
+        //GetAllProduct
+        #region GetAllProduct
+        Console.WriteLine("-----All Added Product Details-----");
+        var products_all1 = warehouse2.GetAllProducts();
+        if (products_all.Count == 0)
+        {
+            Console.WriteLine("No products available.");
+        }
+        else
+        {
+            foreach (var product2 in products_all1)
+            {
+                Console.WriteLine(product2.GetProductDetails());
+            }
+        }
+        #endregion
+
+        //Delete Product
+        #region Delete Product
+        Console.WriteLine("----- View Particular Product Details and Delete -----");
+        Console.Write("Enter Product ID to Remove: ");
+        
+        if (!int.TryParse(Console.ReadLine(), out int productId_del))
+        {
+            Console.WriteLine("Invalid ID. Operation cancelled.");
+            return;
+        }
+        var product_del = warehouse2.GetProduct(productId);
+        if (product_del == null)
+        {
+            Console.WriteLine("Product not found.");
+            return;
+        }
+        else
+        {
+            warehouse2.RemoveProduct(productId_del);
+           // Console.WriteLine("Product removed successfully!");
+        }
+        #endregion
+
+        //GetAllProduct
+        #region GetAllProduct
+        Console.WriteLine("-----All Added Product Details-----");
+        var products_all3 = warehouse2.GetAllProducts();
+        if (products_all.Count == 0)
+        {
+            Console.WriteLine("No products available.");
+        }
+        else
+        {
+            foreach (var product3 in products_all3)
+            {
+                Console.WriteLine(product3.GetProductDetails());
+            }
+        }
+        #endregion
 
         #endregion
 
